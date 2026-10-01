@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+import java.util.Properties
+
+def signingProperties = new Properties()
+def signingFile = rootProject.file('keystore.properties')
+def hasReleaseSigning = signingFile.isFile()
+if (hasReleaseSigning) {
+    signingFile.withInputStream { signingProperties.load(it) }
+}
+
+android {
+    namespace 'mini.read'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'mini.read'
+        minSdk 23
+        targetSdk 30
+        versionCode 2
+        versionName '0.0.2'
+        testInstrumentationRunner 'android.test.InstrumentationTestRunner'
+        ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
+    }
+
+    if (hasReleaseSigning) {
+        signingConfigs {
+            release {
+                storeFile rootProject.file(signingProperties['storeFile'])
+                storePassword signingProperties['storePassword']
+                keyAlias signingProperties['keyAlias']
+                keyPassword signingProperties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions { jvmTarget = '1.8' }
+    packaging { resources.excludes += ['META-INF/**'] }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+tasks.register('verifyReleaseSigning') {
+    doLast {
+        if (!signingFile.isFile()) {
+            throw new GradleException('Release signing is not configured. Copy keystore.properties.example to keystore.properties and set your local keystore values.')
+        }
+    }
+}
+
+tasks.matching { it.name == 'preReleaseBuild' }.configureEach {
+    dependsOn tasks.named('verifyReleaseSigning')
+}

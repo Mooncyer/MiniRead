@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">笔记</string>
+    <string name="app_subtitle">MINIREAD</string>
+    <string name="directory">目录</string>
+    <string name="settings">设置</string>
+    <string name="reading">阅读</string>
+    <string name="back">返回</string>
+    <string name="search">搜索</string>
+    <string name="import_document">导入文档</string>
+    <string name="new_document">新建文档</string>
+    <string name="font_size">字号</string>
+    <string name="dark_mode">深色</string>
+    <string name="light_mode">浅色</string>
+    <string name="rename">重命名</string>
+    <string name="edit">编辑</string>
+    <string name="exit_edit">退出编辑</string>
+    <string name="delete">删除</string>
+    <string name="import_to_notes">导入到笔记</string>
+    <string name="insert_newline">换行</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="delete_confirm">删除此文档？</string>
+    <string name="rename_hint">文档名称</string>
+    <string name="empty">暂无文档</string>
+    <string name="permission_needed">请授予存储权限以管理笔记文件夹。</string>
+    <string name="file_type_error">仅支持 .txt 和 .md 文件</string>
+    <string name="storage_error">文件操作失败</string>
+    <string name="read_error">文档读取失败</string>
+    <string name="exit_app">退出应用</string>
+    <string name="edit_too_large">文件过大，编辑模式限制为 4 MB</string>
+    <string name="import_success">已导入</string>
+    <string name="font_label">阅读字号</string>
+    <string name="crown_sensitivity">表冠灵敏度</string>
+    <string name="page_indicator">%1$d%%</string>
+    <string name="no_documents">将文档放入 MiniRead 文件夹，或从设置导入。</string>
+</resources>
